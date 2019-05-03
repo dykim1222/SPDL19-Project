@@ -53,6 +53,7 @@ for epoch in range(num_epochs):
         labels = labels.to(device)
         
         # Forward pass
+        # pdb.set_trace()
         preds = model(images)
         loss = criterion(preds, labels)
         
