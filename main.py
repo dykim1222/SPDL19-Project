@@ -62,14 +62,15 @@ for epoch in range(num_epochs):
         optimizer.step()
         
 
-        if (i+1) % 100 == 0:
+        # if (i+1) % 100 == 0:
+        if 1:
             t2 = time.time()
             writer.add_scalar('Train Loss', loss.item(), (i+1)+(epoch)*total_step)
             print ("Epoch [{}/{}], Step [{}/{}] Loss: {:.4f} Time: {:.4f}".format(epoch+1, num_epochs, i+1, total_step, loss.item(), t2-t1))
             print('-'*80)
         
     
-    if (epoch+1) % 10 == 0: #validation
+    if (epoch+1) % 2 == 0: #validation
         model.eval()
         with torch.no_grad():
             correct = 0
@@ -86,7 +87,9 @@ for epoch in range(num_epochs):
         print('Accuracy of the model on the validation images: {} %'.format(100 * accuracy))
         writer.add_scalar('Valid Accuracy', accuracy, (i+1)+(epoch+1)*total_step)
         print('@'*80)
+        print('='*80)
         model.train()
         torch.save(model.state_dict(), model_path+'model_{}.ckpt'.format(epoch)) 
+        print('Model Saved.')
 
 
