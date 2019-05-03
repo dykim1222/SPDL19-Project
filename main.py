@@ -7,7 +7,7 @@ import argparse
 import pdb
 import time
 from tensorboardX import SummaryWriter
-
+import os
 
 from Datasets import *
 
@@ -15,13 +15,14 @@ from Datasets import *
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 parser = argparse.ArgumentParser()
 parser.add_argument('--debug', nargs='?', const=1, type=bool, default=False)
-parser.add_argument('--data_path', nargs='?', const=1, type=str, default='/Users/dae/Desktop/dlproject/ssl_data_96')
+parser.add_argument('--data_path', nargs='?', const=1, type=str, default='/home/kimdy/code/spdl19/ssl_data_96')
 parser.add_argument('--save_path', nargs='?', const=1, type=str, default='./')
 parser_args = parser.parse_args()
 
 data_path = parser_args.data_path
 save_path = parser_args.save_path
 log_dir = save_path+'logs/'
+os.makedirs(save_path+'models/',exist_ok=True)
 
 num_epochs = 100
 learning_rate = 1e-3
@@ -86,9 +87,6 @@ for epoch in range(num_epochs):
         writer.add_scalar('Valid Accuracy', accuracy, (i+1)+(epoch+1)*total_step)
         print('@'*80)
         model.train()
-        # save model
+        torch.save(model.state_dict(), 'model{}.ckpt'.format(epoch)) 
 
 
-
-# Save the model checkpoint
-torch.save(model.state_dict(), 'resnet.ckpt')
