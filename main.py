@@ -23,6 +23,7 @@ data_path = parser_args.data_path
 save_path = parser_args.save_path
 log_dir = save_path+'logs/'
 os.makedirs(save_path+'models/',exist_ok=True)
+model_path = save_path+'models/'
 
 num_epochs = 100
 learning_rate = 1e-3
@@ -64,8 +65,7 @@ for epoch in range(num_epochs):
         if (i+1) % 100 == 0:
             t2 = time.time()
             writer.add_scalar('Train Loss', loss.item(), (i+1)+(epoch)*total_step)
-            print ("Epoch [{}/{}], Step [{}/{}] Loss: {:.4f} Time: {:.4f}"
-                   .format(epoch+1, num_epochs, i+1, total_step, loss.item()), t2-t1)
+            print ("Epoch [{}/{}], Step [{}/{}] Loss: {:.4f} Time: {:.4f}".format(epoch+1, num_epochs, i+1, total_step, loss.item(), t2-t1))
             print('-'*80)
         
     
@@ -87,6 +87,6 @@ for epoch in range(num_epochs):
         writer.add_scalar('Valid Accuracy', accuracy, (i+1)+(epoch+1)*total_step)
         print('@'*80)
         model.train()
-        torch.save(model.state_dict(), 'model{}.ckpt'.format(epoch)) 
+        torch.save(model.state_dict(), model_path+'model_{}.ckpt'.format(epoch)) 
 
 
