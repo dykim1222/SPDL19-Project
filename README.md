@@ -1,5 +1,5 @@
 # VAE-GAN for Semi-supervised image classification (SPDL19-Project)
-A partial implementation of baseline model ResNet-152 (trained only with labeled data) for our project VAE-GAN for semi-supervised learning.
+A partial implementation of baseline model ResNet-152 (trained only with labeled data) for our project VAE-GAN.
 
 | Model | Accuracy |
 | --- | --- |
